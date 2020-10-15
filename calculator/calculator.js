@@ -1,17 +1,17 @@
-function add () {
-	
+function add (a, b) {
+	return a + b
 }
 
-function subtract () {
-	
+function subtract (a, b) {
+	return a - b
 }
 
-function sum () {
-	
+function sum (nums) {
+	return nums.reduce(((total, num) => total += num), 0)
 }
 
-function multiply () {
-	
+function multiply (nums) {
+	return nums.reduce(((total, num) => total *= num), 1)
 }
 
 function power() {

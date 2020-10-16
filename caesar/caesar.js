@@ -55,14 +55,11 @@ const caesar = function(phrase, shift) {
                 return temp
             }
         }
-        return c
     }
     let charPhrase = phrase.split("")
-    let returnPhrase = ""
-    for(let i = 0; i < charPhrase.length; i++){
-        returnPhrase += shiftChar(charPhrase[i], shift)
-    }
-    return returnPhrase
+
+    return charPhrase.reduce(((newPhrase, currentChar) => 
+        newPhrase += shiftChar(currentChar, shift)), "")
 }
 
 module.exports = caesar

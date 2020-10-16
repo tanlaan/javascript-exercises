@@ -1,61 +1,45 @@
 const caesar = function(phrase, shift) {
     function shiftChar(c, num) {
-        // Should probably change punctuation check to be more inclusive
-        // as numbers will be changed. I also need to think up a better
-        // way to break down the check to make it more streamlined. This
-        // just seems way too clunky at the moment.
+        // This didn't actually take too long to refactor. I feel 
+        // like this is a much more readable version of my last code.
+        // Before it was just manually doing the same thing for the
+        // four different option we have. I like it much better.
         let punctuation = ['.',',','\"','\'','\\','!','?','-', ' ']
+        let increment = 0
+
         if(punctuation.includes(c)) {
             return c
-        } else if( c >= 'A' && c <= 'Z') {
-            let i = num
-            let temp = c
-            if(i > 0){
-                while(i > 0){
-                    temp = String.fromCharCode(temp.charCodeAt(0) + 1)
-                    if(temp > 'Z'){
-                        temp = 'A'
-                    }
-                    i--
-                }
-                return temp
-            } else {
-                while(i < 0){
-                    temp = String.fromCharCode(temp.charCodeAt(0) - 1)
-                    if(temp < 'A'){
-                        temp = 'Z'
-                    }
-                    i++
-                }
-                return temp
-            }
+        }
 
+        if( num == 0 ) {
+          return c
+        } else if( num > 0 ) {
+          increment = -1
         } else {
-            let i = num
-            let temp = c
-            if(i > 0){
-                while(i > 0){
-                    temp = String.fromCharCode(temp.charCodeAt(0) + 1)
-                    if(temp > 'z'){
-                        temp = 'a'
-                    }
-
-                    i--
+          increment = 1
+        }
+        
+        let lowerBound = 'a'
+        let upperBound = 'z'
+        
+        if( c >= 'A' && c <= 'Z' ) {
+            upperBound = upperBound.toUpperCase()
+            lowerBound = lowerBound.toUpperCase()
+        }
+        
+        for( let counter = num; counter != 0; counter += increment ){
+            c = String.fromCharCode( c.charCodeAt(0) + (-increment) )
+            if( c > upperBound || c < lowerBound ) {
+                if( c > upperBound ) {
+                    c = lowerBound
+                } else {
+                    c = upperBound
                 }
-                return temp
-            } else {
-                while(i < 0){
-                    temp = String.fromCharCode(temp.charCodeAt(0) - 1)
-                    if(temp < 'a'){
-                        temp = 'z'
-                    }
-
-                    i++
-                }
-                return temp
             }
         }
+        return c
     }
+
     let charPhrase = phrase.split("")
 
     return charPhrase.reduce(((newPhrase, currentChar) => 
